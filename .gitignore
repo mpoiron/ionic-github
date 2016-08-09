@@ -1,0 +1,16 @@
+# Node modules
+# Use 'npm install'
+node_modules/
+
+# Typescript typings
+# Use 'typings install' 
+typings/
+
+# Build files
+# Built by ionic
+www/build/
+
+platforms/
+plugins/
+
+.DS_Store
