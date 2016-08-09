@@ -13,7 +13,7 @@ export class HomePage {
   }
 
   getRepos() {
-    this.github.getRepoitories(this.username).subscribe(
+    this.github.getRepositories(this.username).subscribe(
       data => {
         this.foundRepos = data.json();
       },

@@ -7,7 +7,7 @@ export class GithubProvider {
 
   constructor(private http: Http) {}
 
-  getRepoitories(username) {
+  getRepositories(username) {
     let repos = this.http.get(`https://api.github.com/users/${username}/repos`);
     return repos;
   }
