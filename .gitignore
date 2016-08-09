@@ -13,4 +13,7 @@ www/build/
 platforms/
 plugins/
 
+# Visual Studio Code config folder
+.vscode/
+
 .DS_Store
