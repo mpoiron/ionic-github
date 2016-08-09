@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import {GithubProvider} from '../../providers/github/github';
 
 @Component({
@@ -7,14 +8,20 @@ import {GithubProvider} from '../../providers/github/github';
 })
 export class HomePage {
     public foundRepos;
-    public username;
+    public username: string = '';
+    
+    private getReposObservable: Observable<any>;
 
     constructor(private github: GithubProvider) {
+
+        this.getReposObservable = Observable.interval(5000)
+            .flatMap(() => {
+                return this.github.getRepositories(this.username);
+            });
     }
 
     getRepos() {
-        this.github.getRepositories(this.username).subscribe(
-            data => {
+        this.getReposObservable.subscribe(data => {
                 this.foundRepos = data.json();
             },
             err => console.error(err),
