@@ -1,26 +1,16 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>GitHub</ion-title>
+        <ion-title>Wordpress</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding class="home">
-    <ion-list inset>
-        <ion-item>
-            <ion-label>Username</ion-label>
-            <ion-input [(ngModel)]="username" type="text"></ion-input>
-        </ion-item>
-    </ion-list>
-    <div padding>
-        <button block (click)="getRepos()">Search</button>
-    </div>
-
-    <ion-card *ngFor="let repo of repositories">
+    <ion-card *ngFor="let post of wp.posts">
         <ion-card-header>
-            {{ repo.name }}
+            {{ post.title }}
         </ion-card-header>
         <ion-card-content>
-            {{ repo.description }}
+            {{ post.description }}
         </ion-card-content>
     </ion-card>
 </ion-content>

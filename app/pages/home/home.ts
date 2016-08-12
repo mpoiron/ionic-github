@@ -1,30 +1,26 @@
 import {Component} from '@angular/core';
 import 'rxjs/Rx';
-import {GithubProvider} from '../../providers/github/github';
+
+import {WpApiPosts} from 'wp-api-angular';
 
 @Component({
     templateUrl: 'build/pages/home/home.html',
-    providers: [GithubProvider]
+    providers: [WpApiPosts]
 })
 export class HomePage {
-    public repositories;
-    public pageNo = 1;
-    public username = '';
-    
-    constructor(private github: GithubProvider) { }
+    public posts;
 
-    getRepos() {
-        this.github.getRepositories(this.username, this.pageNo)
-            .subscribe(
-            data => {
-                this.repositories = data.json();
-            },
-            err => console.error(err),
-            () => console.log('Finished getting repositories')
-        );
-    }
+    constructor(private wpPosts: WpApiPosts) {
+        this.getPosts();
+     }
 
-    getNext() {
+    private getPosts() {
 
+        this.wpPosts.getList({})
+                    .subscribe(
+                        data => this.posts = data.json(),
+                        err => console.log(err),
+                        () => console.log('End of posts request')
+                    );
     }
 }
