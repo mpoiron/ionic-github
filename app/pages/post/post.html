@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title [innerHTML]="post.title.rendered"></ion-title>
+    <ion-buttons end>
+        <button (click)="getPost(id)">
+            <ion-icon name="refresh"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="spinner">
+        <ion-spinner icon="crescent" [hidden]="!isLoading"></ion-spinner>
+    </div>
+    <div class="content" [hidden]="isLoading" [innerHTML]="post.content.rendered">
+    </div>
+</ion-content>

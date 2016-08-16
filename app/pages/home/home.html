@@ -3,7 +3,12 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Posts</ion-title>
+    <ion-buttons end>
+        <button (click)="getPosts()">
+            <ion-icon name="refresh"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -11,7 +16,7 @@
     <div class="spinner">
         <ion-spinner icon="crescent" [hidden]="!isLoading"></ion-spinner>
     </div>
-    <ion-card *ngFor="let post of posts">
+    <ion-card [hidden]="isLoading" *ngFor="let post of posts" (click)="openPost(post.id, post)">
         <ion-card-header>
             {{ post.title.rendered }}
         </ion-card-header>
