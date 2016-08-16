@@ -5,9 +5,9 @@ import {WpApiPosts} from 'wp-api-angular';
 import {PostPage} from '../post/post'; 
 
 @Component({
-    templateUrl: 'build/pages/home/home.html',
+    templateUrl: 'build/pages/posts/posts.html',
 })
-export class HomePage {
+export class PostsPage {
     posts: [any];
     isLoading = false;
 
