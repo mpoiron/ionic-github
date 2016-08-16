@@ -7,7 +7,13 @@ import {HomePage} from './pages/home/home';
 import {WPAPI_PROVIDERS, defaultWpApi} from 'wp-api-angular';
 
 @Component({
-    template: '<ion-nav [root]="rootPage"></ion-nav>'
+    template: '<ion-nav [root]="rootPage"></ion-nav>',
+    providers: [
+        WPAPI_PROVIDERS,
+        defaultWpApi({
+            baseUrl: 'http://localhost:4001/wordpress/wp-json',
+            namespace: '/wp/v2'
+    })]
 })
 export class MyApp {
     rootPage: any = HomePage;
@@ -21,9 +27,4 @@ export class MyApp {
     }
 }
 
-ionicBootstrap(MyApp, [
-    WPAPI_PROVIDERS,
-    defaultWpApi({
-        baseUrl: 'http://localhost:4001/wordpress/wp-json'
-    })
-]);
+ionicBootstrap(MyApp);

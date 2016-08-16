@@ -5,7 +5,6 @@ import {WpApiPosts} from 'wp-api-angular';
 
 @Component({
     templateUrl: 'build/pages/home/home.html',
-    providers: [WpApiPosts]
 })
 export class HomePage {
     public posts;
