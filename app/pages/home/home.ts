@@ -7,7 +7,8 @@ import {WpApiPosts} from 'wp-api-angular';
     templateUrl: 'build/pages/home/home.html',
 })
 export class HomePage {
-    public posts;
+    posts: [any];
+    isLoading = false;
 
     constructor(private wpPosts: WpApiPosts) {
         this.getPosts();
@@ -15,11 +16,12 @@ export class HomePage {
 
     private getPosts() {
 
+        this.isLoading = true;
         this.wpPosts.getList({})
                     .subscribe(
                         data => this.posts = data.json(),
                         err => console.log(err),
-                        () => console.log('End of posts request')
+                        () => this.isLoading = false
                     );
     }
 }

@@ -1,13 +1,13 @@
-import {Component} from '@angular/core';
-import {provide} from '@angular/core';
-import {Platform, ionicBootstrap} from 'ionic-angular';
+import {Component, ViewChild, provide} from '@angular/core';
+import {Platform, MenuController, Nav, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
+import {AboutPage} from './pages/about/about';
 
 import {WPAPI_PROVIDERS, defaultWpApi} from 'wp-api-angular';
 
 @Component({
-    template: '<ion-nav [root]="rootPage"></ion-nav>',
+    templateUrl: 'build/app.html',
     providers: [
         WPAPI_PROVIDERS,
         defaultWpApi({
@@ -16,14 +16,26 @@ import {WPAPI_PROVIDERS, defaultWpApi} from 'wp-api-angular';
     })]
 })
 export class MyApp {
+
+    @ViewChild(Nav) nav: Nav;
+
+    pages: any = [
+        { title: 'Home', component: HomePage},
+        { title: 'About', component: AboutPage}
+    ];
     rootPage: any = HomePage;
 
-    constructor(platform: Platform) {
+    constructor(platform: Platform, private menu: MenuController) {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
         });
+    }
+
+    openPage(page) {
+        this.menu.close();
+        this.nav.setRoot(page.component);    
     }
 }
 
