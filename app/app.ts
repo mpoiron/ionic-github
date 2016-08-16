@@ -2,7 +2,6 @@ import {Component, ViewChild, provide} from '@angular/core';
 import {Platform, MenuController, Nav, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
-import {AboutPage} from './pages/about/about';
 
 import {WPAPI_PROVIDERS, defaultWpApi} from 'wp-api-angular';
 
@@ -20,8 +19,7 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     pages: any = [
-        { title: 'Home', component: HomePage},
-        { title: 'About', component: AboutPage}
+        { title: 'Home', component: HomePage}
     ];
     rootPage: any = HomePage;
 
