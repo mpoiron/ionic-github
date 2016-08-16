@@ -64,7 +64,19 @@ gulp.task('build', ['clean'], function(done){
   );
 });
 
-gulp.task('sass', buildSass);
+gulp.task('sass', function() {
+    return buildSass({
+        sassOptions: {
+            file: 'node_modules/animate.css/animate.min.css',
+            includePaths: [
+                'node_modules/ionic-angular',
+                'node_modules/ionicons/dist/scss',
+                'node_modules/animate.css/'
+            ]
+        }
+    })
+})
+
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
 gulp.task('scripts', copyScripts);
