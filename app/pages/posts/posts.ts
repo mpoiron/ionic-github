@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
+import {Response} from '@angular/http';
 import {NavController} from 'ionic-angular';
+import {SpinnerDialog} from 'ionic-native';
 
 import {WpApiPosts} from 'wp-api-angular';
 import {PostPage} from '../post/post'; 
@@ -17,11 +19,17 @@ export class PostsPage {
 
     private getPosts() {
         this.isLoading = true;
+        SpinnerDialog.show('', 'Loading...', null, null);
+
         this.wpPosts.getList()
+                    .retry(2)
+                    .finally<Response>(() => {
+                        this.isLoading = false;
+                        SpinnerDialog.hide();
+                    })
                     .subscribe(
                         data => this.posts = data.json(),
-                        err => console.log(err),
-                        () => this.isLoading = false
+                        err => console.log(err)
                     );
     }
 
