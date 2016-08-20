@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-navbar>
-    <button menuToggle>
+    <ion-navbar>
+        <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Posts</ion-title>
-    <ion-buttons end>
-        <button (click)="getPosts()">
+        <ion-title>Posts</ion-title>
+        <ion-buttons end>
+            <button (click)="getPosts()">
             <ion-icon name="refresh"></ion-icon>
         </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding class="posts">
@@ -17,11 +17,10 @@
         <ion-spinner icon="crescent" [hidden]="!isLoading"></ion-spinner>
     </div>
     <ion-card [hidden]="isLoading" *ngFor="let post of posts" (click)="openPost(post.id, post)">
-        <ion-card-header>
-            {{ post.title.rendered }}
-        </ion-card-header>
-        <ion-card-content>
-            <div [innerHTML]="post.excerpt.rendered"></div>
-        </ion-card-content>
+        <div>
+            <img *ngIf="post.featuredImage != null" [src]="post.featuredImage?.link">
+        </div>
+        <ion-card-header [innerHTML]="post.title.rendered"></ion-card-header>
+        <ion-card-content [innerHTML]="post.excerpt.rendered"></ion-card-content>
     </ion-card>
 </ion-content>

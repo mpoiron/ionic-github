@@ -13,6 +13,8 @@
     <div class="spinner">
         <ion-spinner icon="crescent" [hidden]="!isLoading"></ion-spinner>
     </div>
-    <div class="content" [hidden]="isLoading" [innerHTML]="post.content.rendered">
+    <div class="content" [hidden]="isLoading">
+        <img *ngIf="post.featuredImage != null" [src]="post.featuredImage?.link">
+        <div [innerHTML]="post.content.rendered" ></div>
     </div>
 </ion-content>

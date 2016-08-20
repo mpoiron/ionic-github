@@ -3,17 +3,20 @@ import {Response} from '@angular/http';
 import {NavController} from 'ionic-angular';
 import {SpinnerDialog} from 'ionic-native';
 
-import {WpApiPosts} from 'wp-api-angular';
-import {PostPage} from '../post/post'; 
+import {WpPost} from '../../providers/wordpress/post';
+import {WpApi} from '../../providers/wordpress/api';
+
+import {PostPage} from '../post/post';
 
 @Component({
     templateUrl: 'build/pages/posts/posts.html',
+    providers: [WpApi]
 })
 export class PostsPage {
-    posts: [any];
+    posts: any[] = [];
     isLoading = false;
 
-    constructor(private wpPosts: WpApiPosts, private navCtrl: NavController) {
+    constructor(private wpApi: WpApi, private navCtrl: NavController) {
         this.getPosts();
      }
 
@@ -21,16 +24,17 @@ export class PostsPage {
         this.isLoading = true;
         SpinnerDialog.show('', 'Loading...', null, null);
 
-        this.wpPosts.getList()
-                    .retry(2)
-                    .finally<Response>(() => {
-                        this.isLoading = false;
-                        SpinnerDialog.hide();
-                    })
-                    .subscribe(
-                        data => this.posts = data.json(),
-                        err => console.log(err)
-                    );
+        this.wpApi.getPosts({ retry: 2 })
+                        .finally<Response>(() => {
+                            this.isLoading = false;
+                            SpinnerDialog.hide();
+                        })
+                        .subscribe(
+                            data => data.json().map(post => {
+                                        this.posts.push(WpPost.fromApi(post));
+                                    }),
+                            err => console.log(err)
+                        );
     }
 
     private openPost(id: number, post?: any) {

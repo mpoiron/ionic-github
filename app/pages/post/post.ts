@@ -3,17 +3,19 @@ import {Response} from '@angular/http';
 import {NavController, NavParams} from 'ionic-angular';
 import {SpinnerDialog} from 'ionic-native';
 
-import {WpApiPosts} from 'wp-api-angular';
+import {WpPost} from '../../providers/wordpress/post';
+import {WpApi} from '../../providers/wordpress/api';
 
 @Component({
   templateUrl: 'build/pages/post/post.html',
+  providers: [WpApi]
 })
 export class PostPage {
     id: number;
     post: any;
     isLoading = false;
 
-    constructor(private wpPosts: WpApiPosts, private navCtrl: NavController, private params: NavParams) {
+    constructor(private wpApi: WpApi, private navCtrl: NavController, private params: NavParams) {
         this.id = params.get('id');
         this.post = params.get('post');
 
@@ -26,15 +28,14 @@ export class PostPage {
         this.isLoading = true;
         SpinnerDialog.show('', 'Loading...', null, null);
 
-        this.wpPosts.getList()
-                    .retry(2)
-                    .finally<Response>(() => {
-                        this.isLoading = false;
-                        SpinnerDialog.hide();
-                    })
-                    .subscribe(
-                        data => this.post = data.json(),
-                        err => console.log(err)
-                    );
+        this.wpApi.getPost(id, { retry: 2 })
+                        .finally<Response>(() => {
+                            this.isLoading = false;
+                            SpinnerDialog.hide();
+                        })
+                        .subscribe(
+                            data => this.post = WpPost.fromApi(data.json()),
+                            err => console.log(err)
+                        );
     }
 }

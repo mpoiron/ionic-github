@@ -1,3 +1,22 @@
 .posts {
     
 }
+
+.posts ion-card {
+    background-color: #CCC;
+}
+
+.posts ion-card * {
+    background-color: #FFFFFF;
+}
+
+.posts ion-card-header {
+    font-size: 18px;
+}
+
+.posts ion-card img {
+    height: 80pt;
+    width: auto;
+    margin: 0 auto 2pt auto;
+    padding: 5pt;
+}
